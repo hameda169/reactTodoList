@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const my_todo_list = [
@@ -15,11 +15,27 @@ const TodoItem = ({ id, name }) => (
 );
 
 function App() {
+  const [tasks, setTasks] = useState(my_todo_list);
+  const [newTask, setNewTask] = useState("");
+  const [lastId, setLastId] = useState(6);
   return (
     <div className="App">
-      {my_todo_list.map(x => (
+      {tasks.map(x => (
         <TodoItem id={x.id} name={x.name} />
       ))}
+      <input
+        type={"text"}
+        onChange={e => setNewTask(e.target.value)}
+        value={newTask}
+      />
+      <button
+        onClick={() => {
+          setTasks([...tasks, { id: lastId, name: newTask }]);
+          setLastId(lastId + 1);
+        }}
+      >
+        Add New Task
+      </button>
     </div>
   );
 }
