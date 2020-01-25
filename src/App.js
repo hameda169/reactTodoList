@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+
+const my_todo_list = [
+  { id: 1, name: "Get Milk" },
+  { id: 2, name: "Go to Gym" },
+  { id: 3, name: "Call Mom" },
+  { id: 4, name: "Work" },
+  { id: 5, name: "Send Email" }
+];
+const TodoItem = ({ id, name }) => (
+  <div style={{ width: null }}>
+    <span>{id}</span> - <span>{name}</span>
+  </div>
+);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {my_todo_list.map(x => (
+        <TodoItem id={x.id} name={x.name} />
+      ))}
     </div>
   );
 }
