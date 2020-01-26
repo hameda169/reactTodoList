@@ -1,5 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useReducer, useEffect } from "react";
 import "./App.css";
+import { reducer, init } from "./Reducer";
+import {
+  addTaskAct,
+  changeNameAct,
+  checkAct,
+  initAct,
+  removeAct,
+  viewAct
+} from "./Actions";
 
 const my_todo_list = [
   { id: 1, name: "Get Milk", done: false },
@@ -11,50 +20,39 @@ const my_todo_list = [
 const TodoItem = ({ id, name, remove, done, check }) => (
   <div style={{ width: null }}>
     <input checked={done} type={"checkbox"} onClick={check} />
-    <span>{id}</span> - <span>{name}</span> -{" "}
+    <span>{id}</span> - <span>{name}</span>
+    {" - " /*it's a &nbsp. prettier added this automatically*/}
     <span>{done ? "done" : "undone"}</span>
     <button onClick={remove}>delete</button>
   </div>
 );
 
 function App() {
-  const [tasks, setTasks] = useState(my_todo_list);
-  const [newTask, setNewTask] = useState("");
-  const [lastId, setLastId] = useState(6);
-  const [show, setShow] = useState("all");
-  const remove = useCallback(
-    id => () => setTasks(tasks.filter(x => x.id !== id)),
-    [tasks]
+  const [state, dispatch] = useReducer(reducer, init, undefined);
+  useEffect(() => dispatch(initAct(my_todo_list, 6)), []); //componentDidMount
+  const remove = useCallback(id => () => dispatch(removeAct(id)), []);
+  const check = useCallback(id => () => dispatch(checkAct(id)), []);
+  const changeView = useCallback(show => () => dispatch(viewAct(show)), []);
+  const addNewTask = useCallback(() => dispatch(addTaskAct()), []);
+  const setNewTaskName = useCallback(
+    e => dispatch(changeNameAct(e.target.value)),
+    []
   );
-  const check = useCallback(
-    id => () =>
-      setTasks(
-        tasks.map(x => ({ ...x, done: x.id === id ? !x.done : x.done }))
-      ),
-    [tasks]
-  );
-  const changeView = useCallback(newView => () => setShow(newView), []);
-  const addNewTask = useCallback(() => {
-    setTasks([...tasks, { id: lastId, name: newTask, done: false }]);
-    setLastId(lastId + 1);
-    setNewTask("");
-  }, [tasks, newTask, lastId]);
-  const setNewTaskName = useCallback(e => setNewTask(e.target.value), []);
   return (
     <div className="App">
-      <button disabled={show === "all"} onClick={changeView("all")}>
+      <button disabled={state.show === "all"} onClick={changeView("all")}>
         All
       </button>
-      <button disabled={show === "done"} onClick={changeView("done")}>
+      <button disabled={state.show === "done"} onClick={changeView("done")}>
         Done
       </button>
-      <button disabled={show === "undone"} onClick={changeView("undone")}>
+      <button disabled={state.show === "undone"} onClick={changeView("undone")}>
         Undone
       </button>
       <br />
-      {tasks
+      {state.tasks
         .filter(x =>
-          show === "all" ? true : show === "done" ? x.done : !x.done
+          state.show === "all" ? true : state.show === "done" ? x.done : !x.done
         )
         .map(x => (
           <TodoItem
@@ -65,7 +63,7 @@ function App() {
             done={x.done}
           />
         ))}
-      <input type={"text"} onChange={setNewTaskName} value={newTask} />
+      <input type={"text"} onChange={setNewTaskName} value={state.newTask} />
       <button onClick={addNewTask}>Add New Task</button>
     </div>
   );
