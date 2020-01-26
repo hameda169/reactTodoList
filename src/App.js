@@ -19,9 +19,9 @@ const my_todo_list = [
 ];
 const TodoItem = ({ id, name, remove, done, check }) => (
   <div style={{ width: null }}>
-    <input checked={done} type={"checkbox"} onClick={check} />
+    <input checked={done} type="checkbox" onClick={check} />
     <span>{id}</span> - <span>{name}</span>
-    {" - " /*it's a &nbsp. prettier added this automatically*/}
+    {" - "}
     <span>{done ? "done" : "undone"}</span>
     <button onClick={remove}>delete</button>
   </div>
@@ -63,7 +63,7 @@ function App() {
             done={x.done}
           />
         ))}
-      <input type={"text"} onChange={setNewTaskName} value={state.newTask} />
+      <input type="text" onChange={setNewTaskName} value={state.newTask} />
       <button onClick={addNewTask}>Add New Task</button>
     </div>
   );
