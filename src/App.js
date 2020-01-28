@@ -1,4 +1,6 @@
-import React, { useCallback, useReducer, useEffect } from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { useCallback, useReducer, useEffect } from "react";
 import "./App.css";
 import { reducer, init } from "./Reducer";
 import {
@@ -19,16 +21,37 @@ const my_todo_list = [
 ];
 const TodoItem = ({ id, name, remove, done, check }) => (
   <div style={{ width: null }}>
-    <input checked={done} type="checkbox" onClick={check} />
+    <input
+      checked={done}
+      type="checkbox"
+      onClick={check}
+      css={{ backgroundColor: "#ff0000" }}
+    />
     <span>{id}</span> - <span>{name}</span>
     {" - "}
     <span>{done ? "done" : "undone"}</span>
-    <button onClick={remove}>delete</button>
+    <button
+      onClick={remove}
+      css={{
+        fontFamily: "MyFont",
+        borderWidth: 0,
+        backgroundColor: "transparent",
+        fontSize: 16,
+        color: "#5c85c7",
+        transition: "all 0.5s",
+        "&:hover": {
+          color: "#980152",
+          transform: "scale(1.5)"
+        }
+      }}
+    >
+      {"\ue807"}
+    </button>
   </div>
 );
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, init, undefined);
+  const [state, dispatch] = useReducer(reducer, init, () => init);
   useEffect(() => dispatch(initAct(my_todo_list, 6)), []); //componentDidMount
   const remove = useCallback(id => () => dispatch(removeAct(id)), []);
   const check = useCallback(id => () => dispatch(checkAct(id)), []);
@@ -39,7 +62,13 @@ function App() {
     []
   );
   return (
-    <div className="App">
+    <div
+      className="App"
+      css={{
+        background: "linear-gradient(#e6646533, #9198e588)",
+        height: "100%"
+      }}
+    >
       <button disabled={state.show === "all"} onClick={changeView("all")}>
         All
       </button>
