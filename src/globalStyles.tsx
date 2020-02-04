@@ -1,6 +1,5 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
-import MyFont from './fonts/MyFont.woff';
 
 export default () => (
   <Global
@@ -18,10 +17,6 @@ export default () => (
         text-align: center;
       }
 
-      @font-face {
-        font-family: "MyFont";
-        src: local("MyFont"), url(${MyFont}) format("woff");
-      }
     `}
   />
 );

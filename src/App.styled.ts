@@ -1,22 +1,22 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div({
+export const Container = styled('div')({
   background: 'linear-gradient(#e6646533, #9198e588)',
   height: '100%'
 });
-export const Select = styled.button(
+export const Select = styled('button')(
   {
     padding: '2px 10px',
     margin: '5px',
     fontSize: 16,
     borderRadius: '10px'
   },
-  props => ({
+    (props: any) => ({
     backgroundColor: props.disabled ? '#33aa22' : '',
     color: props.disabled ? '#fff' : ''
   })
 );
-export const AddButton = styled.button({
+export const AddButton = styled('button')({
   fontFamily: 'MyFont',
   borderWidth: 0,
   backgroundColor: 'transparent',
@@ -28,7 +28,7 @@ export const AddButton = styled.button({
     transform: 'scale(2)'
   }
 });
-export const RemoveButton = styled.button({
+export const RemoveButton = styled('button')({
     fontFamily: 'MyFont',
     borderWidth: 0,
     backgroundColor: 'transparent',
@@ -41,5 +41,5 @@ export const RemoveButton = styled.button({
     }
   }
 );
-export const Item = styled.div`margin: 10px;`;
-export const NewTaskInput = styled.input`border-width: 0;padding: 5px;font-size: 15px;`;
+export const Item = styled('div')`margin: 10px;`;
+export const NewTaskInput = styled('input')`border-width: 0;padding: 5px;font-size: 15px;`;

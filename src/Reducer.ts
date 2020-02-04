@@ -1,10 +1,24 @@
+import { Action } from "./Actions";
+interface Task {
+  id: number;
+  name: string;
+  done: boolean;
+}
+
+interface State {
+  tasks: Task[];
+  newTask: string;
+  lastId: number;
+  show: string;
+}
+
 export const init = {
   tasks: [],
   newTask: "",
   lastId: 0,
   show: "all"
 };
-export const reducer = (state = init, action) => {
+export const reducer = (state: State = init, action: Action) => {
   switch (action.type) {
     case "INIT":
       return { ...state, tasks: action.tasks, lastId: action.lastId };
