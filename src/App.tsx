@@ -11,7 +11,7 @@ import {
   removeAct,
   viewAct
 } from "./Actions";
-import { TodoItem } from "./todoItem";
+import { TodoItem } from "./TodoItem";
 
 const my_todo_list = [
   { id: 1, name: "Get Milk", done: false },
@@ -48,19 +48,19 @@ function App() {
       <div>
         {state.tasks
           .filter(
-            (x: any) =>
+            todoItem =>
               state.show === "all" ||
-              (x.done && state.show === "done") ||
-              (!x.done && state.show === "undone")
+              (todoItem.done && state.show === "done") ||
+              (!todoItem.done && state.show === "undone")
           )
-          .map((x: any) => (
+          .map(todoItem => (
             <TodoItem
-              id={x.id}
-              name={x.name}
-              onRemove={onRemove(x.id)}
-              onCheck={onCheck(x.id)}
-              done={x.done}
-              key={`${x.id}`}
+              id={todoItem.id}
+              name={todoItem.name}
+              onRemove={onRemove(todoItem.id)}
+              onCheck={onCheck(todoItem.id)}
+              done={todoItem.done}
+              key={`${todoItem.id}`}
             />
           ))}
       </div>

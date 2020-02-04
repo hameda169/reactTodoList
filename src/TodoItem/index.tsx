@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Item, RemoveButton } from "../App.styled";
 type ComponentProps = {
-  id?: number;
-  name?: string;
-  onRemove?: () => void;
-  done?: boolean;
-  onCheck?: () => void;
+  id: number;
+  name: string;
+  onRemove: () => void;
+  done: boolean;
+  onCheck: () => void;
 };
 
 export const TodoItem: FC<ComponentProps> = ({

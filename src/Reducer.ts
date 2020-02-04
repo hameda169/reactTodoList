@@ -1,3 +1,4 @@
+import { Action } from "./Actions";
 interface Task {
   id: number;
   name: string;
@@ -17,10 +18,7 @@ export const init = {
   lastId: 0,
   show: "all"
 };
-export const reducer = (
-  state: State = init,
-  action: { type: string; [elemName: string]: any }
-) => {
+export const reducer = (state: State = init, action: Action) => {
   switch (action.type) {
     case "INIT":
       return { ...state, tasks: action.tasks, lastId: action.lastId };
