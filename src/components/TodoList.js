@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 function TodoItem({ id, name, remove, done, check }) {
   return (
@@ -10,9 +11,9 @@ function TodoItem({ id, name, remove, done, check }) {
   );
 }
 
-export function TodoList(props) {
-  const show = props.store.getState().currentShowState;
-  const activeTasks = props.store.getState().tasks.filter((x) => ({ all: true, done: x.done, undone: !x.done }[show]));
+function PreTodoList(props) {
+  const show = props.currentShowState;
+  const activeTasks = props.tasks.filter((x) => ({ all: true, done: x.done, undone: !x.done }[show]));
 
   return (
     <div>
@@ -22,8 +23,8 @@ export function TodoList(props) {
             key={x.id}
             id={x.id}
             name={x.name}
-            remove={() => props.store.dispatch({ type: 'remove', id: x.id })}
-            check={() => props.store.dispatch({ type: 'check', id: x.id })}
+            remove={() => props.remove(x.id)}
+            check={() => props.check(x.id)}
             done={x.done}
           />
         ))
@@ -33,3 +34,15 @@ export function TodoList(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentShowState: state.currentShowState,
+  tasks: state.tasks,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  remove: (id) => dispatch({ type: 'remove', id }),
+  check: (id) => dispatch({ type: 'check', id }),
+});
+
+export const TodoList = connect(mapStateToProps, mapDispatchToProps)(PreTodoList);

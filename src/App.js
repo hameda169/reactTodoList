@@ -3,12 +3,12 @@ import { TodoList } from './components/TodoList';
 import { ControlButtons } from './components/ControlButtons';
 import { TaskCreate } from './components/TaskCreate';
 
-function App({ store }) {
+function App() {
   return (
     <div>
-      <ControlButtons store={store} />
-      <TodoList store={store} />
-      <TaskCreate store={store} />
+      <ControlButtons />
+      <TodoList />
+      <TaskCreate />
     </div>
   );
 }

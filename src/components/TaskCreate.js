@@ -1,15 +1,16 @@
 import React, { useCallback, useState } from 'react';
+import { connect } from 'react-redux';
 
-export function TaskCreate(props) {
+function PreTaskCreate(props) {
   const [newTask, setNewTask] = useState('');
   const setNewTaskName = useCallback((event) => setNewTask(event.target.value), []);
   const createTask = useCallback(
     (event) => {
       event.preventDefault();
-      props.store.dispatch({ type: 'createTask', name: newTask });
+      props.createTask(newTask);
       setNewTask('');
     },
-    [props.addNewTask, newTask],
+    [props.createTask, newTask],
   );
 
   return (
@@ -19,3 +20,9 @@ export function TaskCreate(props) {
     </form>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  createTask: (name) => dispatch({ type: 'createTask', name }),
+});
+
+export const TaskCreate = connect(() => ({}), mapDispatchToProps)(PreTaskCreate);
