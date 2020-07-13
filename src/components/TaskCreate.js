@@ -6,7 +6,7 @@ export function TaskCreate(props) {
   const createTask = useCallback(
     (event) => {
       event.preventDefault();
-      props.addNewTask(newTask);
+      props.store.dispatch({ type: 'createTask', name: newTask });
       setNewTask('');
     },
     [props.addNewTask, newTask],

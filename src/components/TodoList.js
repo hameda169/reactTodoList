@@ -11,16 +11,19 @@ function TodoItem({ id, name, remove, done, check }) {
 }
 
 export function TodoList(props) {
+  const show = props.store.getState().currentShowState;
+  const activeTasks = props.store.getState().tasks.filter((x) => ({ all: true, done: x.done, undone: !x.done }[show]));
+
   return (
     <div>
-      {props.activeTasks.length > 0 ? (
-        props.activeTasks.map((x) => (
+      {activeTasks.length > 0 ? (
+        activeTasks.map((x) => (
           <TodoItem
             key={x.id}
             id={x.id}
             name={x.name}
-            remove={props.remove(x.id)}
-            check={props.check(x.id)}
+            remove={() => props.store.dispatch({ type: 'remove', id: x.id })}
+            check={() => props.store.dispatch({ type: 'check', id: x.id })}
             done={x.done}
           />
         ))
