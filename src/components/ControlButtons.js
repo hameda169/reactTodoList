@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setShowStateAction } from '../store/actions';
 
 function PreControlButtons(props) {
   const show = props.currentShowState;
@@ -26,7 +27,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setShowState: (value) => dispatch({ type: 'setShowState', value }),
+  setShowState: (value) => dispatch(setShowStateAction(value)),
 });
 
 export const ControlButtons = connect(mapStateToProps, mapDispatchToProps)(PreControlButtons);

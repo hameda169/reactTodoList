@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {checkAction, removeAction} from "../store/actions";
 
 function TodoItem({ id, name, remove, done, check }) {
   return (
@@ -41,8 +42,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  remove: (id) => dispatch({ type: 'remove', id }),
-  check: (id) => dispatch({ type: 'check', id }),
+  remove: (id) => dispatch(removeAction(id)),
+  check: (id) => dispatch(checkAction(id)),
 });
 
 export const TodoList = connect(mapStateToProps, mapDispatchToProps)(PreTodoList);

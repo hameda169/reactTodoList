@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
+import { createTaskAction } from '../store/actions';
 
 function PreTaskCreate(props) {
   const [newTask, setNewTask] = useState('');
@@ -22,7 +23,7 @@ function PreTaskCreate(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  createTask: (name) => dispatch({ type: 'createTask', name }),
+  createTask: (name) => dispatch(createTaskAction(name)),
 });
 
 export const TaskCreate = connect(() => ({}), mapDispatchToProps)(PreTaskCreate);
